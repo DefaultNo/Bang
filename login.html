@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230529180542">
+	<title>Главная</title>
+</head>
+
+<body>
+	<div class="wrapper">
+
+		<header class="header">
+			<div class="header__container _container">
+				<a href="#" class="header__logo">
+					<img src="img/logo.svg" alt="logo">
+				</a>
+				<nav class="header__menu menu">
+					<ul class="menu__list">
+						<li class="menu__item">
+							<a href="index.html" class="menu__link">Home</a>
+						</li>
+						<li class="menu__item">
+							<a href="statistics.html" class="menu__link">Statistics</a>
+						</li>
+						<li class="menu__item">
+							<a href="support.html" class="menu__link">Contact Us</a>
+						</li>
+					</ul>
+				</nav>
+				<a href="login.html" class="header__button">
+					<span href="#" class="header__login">Login</span>
+					<span class="header__login-decor"></span>
+				</a>
+				<button class="header__burger">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+			</div>
+		</header>
+
+		<main class="main">
+			<div class="login decor-bg">
+				<div class="login__container _container">
+					<div class="login__body">
+						<form novalidate action="#" class="login__form form">
+							<div class="form__wrapper">
+								<div class="form__header">
+									<div class="form__logo">
+										<img src="img/registration/welcome.png" alt="welcome">
+									</div>
+								</div>
+								<div class="form__items">
+									<div class="form__row">
+										<div class="form__item input-item">
+											<div class="input-item__wrapper">
+												<div class="input-item__body">
+													<input autocomplete="off" required type="text" class="input-item__input">
+													<label class="input-item__label">Your Login</label>
+												</div>
+												<div class="input-item__icon input-item__icon_check">
+													<img src="img/registration/check.svg" alt="check">
+												</div>
+											</div>
+										</div>
+										<div class="form__item input-item">
+											<div class="input-item__wrapper">
+												<div class="input-item__body">
+													<input autocomplete="off" required type="password" class="input-item__input">
+													<label class="input-item__label">Password</label>
+												</div>
+												<div class="input-item__icon input-item__icon_check">
+													<img src="img/registration/check.svg" alt="check">
+												</div>
+											</div>
+										</div>
+										<div class="form__code input-code">
+											<input autocomplete="off" type="text" class="input-code__input">
+											<div class="input-code__numbers">
+												18673
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form__footer">
+									<div class="form__reset">
+										<a href="#">Forgot Password?</a>
+									</div>
+									<button class="form__button">
+										<span class="form__registration">Create account</span>
+										<span class="form__button-decor"></span>
+									</button>
+								</div>
+							</div>
+						</form>
+						<div class="login__already-have arleady-have">
+							Ещё нет аккаунта?
+							<a href="registration.html" class="arleady-have__link">REGISTRATION</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+
+	</div>
+
+
+
+	<script src="js/app.min.js?_v=20230529180542"></script>
+</body>
+
+</html>
