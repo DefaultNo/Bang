@@ -1033,6 +1033,55 @@
             }
         }
         module_techModule.popup = new Popup({});
+        class MousePRLX {
+            constructor(props, data = null) {
+                let defaultConfig = {
+                    init: true,
+                    logging: true
+                };
+                this.config = Object.assign(defaultConfig, props);
+                if (this.config.init) {
+                    const paralaxMouse = document.querySelectorAll("[data-prlx-mouse]");
+                    if (paralaxMouse.length) this.paralaxMouseInit(paralaxMouse);
+                }
+            }
+            paralaxMouseInit(paralaxMouse) {
+                paralaxMouse.forEach((el => {
+                    const paralaxMouseWrapper = el.closest("[data-prlx-mouse-wrapper]");
+                    const paramСoefficientX = el.dataset.prlxCx ? +el.dataset.prlxCx : 100;
+                    const paramСoefficientY = el.dataset.prlxCy ? +el.dataset.prlxCy : 100;
+                    const directionX = el.hasAttribute("data-prlx-dxr") ? -1 : 1;
+                    const directionY = el.hasAttribute("data-prlx-dyr") ? -1 : 1;
+                    const paramAnimation = el.dataset.prlxA ? +el.dataset.prlxA : 50;
+                    let positionX = 0, positionY = 0;
+                    let coordXprocent = 0, coordYprocent = 0;
+                    setMouseParallaxStyle();
+                    if (paralaxMouseWrapper) mouseMoveParalax(paralaxMouseWrapper); else mouseMoveParalax();
+                    function setMouseParallaxStyle() {
+                        const distX = coordXprocent - positionX;
+                        const distY = coordYprocent - positionY;
+                        positionX += distX * paramAnimation / 1e3;
+                        positionY += distY * paramAnimation / 1e3;
+                        el.style.cssText = `transform: translate3D(${directionX * positionX / (paramСoefficientX / 10)}%,${directionY * positionY / (paramСoefficientY / 10)}%,0);`;
+                        requestAnimationFrame(setMouseParallaxStyle);
+                    }
+                    function mouseMoveParalax(wrapper = window) {
+                        wrapper.addEventListener("mousemove", (function(e) {
+                            const offsetTop = el.getBoundingClientRect().top + window.scrollY;
+                            if (offsetTop >= window.scrollY || offsetTop + el.offsetHeight >= window.scrollY) {
+                                const parallaxWidth = window.innerWidth;
+                                const parallaxHeight = window.innerHeight;
+                                const coordX = e.clientX - parallaxWidth / 2;
+                                const coordY = e.clientY - parallaxHeight / 2;
+                                coordXprocent = coordX / parallaxWidth * 100;
+                                coordYprocent = coordY / parallaxHeight * 100;
+                            }
+                        }));
+                    }
+                }));
+            }
+        }
+        module_techModule.mousePrlx = new MousePRLX({});
         function formFieldsInit(options = {
             viewPass: false
         }) {
@@ -4081,6 +4130,250 @@
         }));
         Swiper.use([ Resize, Observer ]);
         const core = Swiper;
+        function create_element_if_not_defined_createElementIfNotDefined(swiper, originalParams, params, checkProps) {
+            if (swiper.params.createElements) Object.keys(checkProps).forEach((key => {
+                if (!params[key] && params.auto === true) {
+                    let element = utils_elementChildren(swiper.el, `.${checkProps[key]}`)[0];
+                    if (!element) {
+                        element = utils_createElement("div", checkProps[key]);
+                        element.className = checkProps[key];
+                        swiper.el.append(element);
+                    }
+                    params[key] = element;
+                    originalParams[key] = element;
+                }
+            }));
+            return params;
+        }
+        function Navigation({swiper, extendParams, on, emit}) {
+            extendParams({
+                navigation: {
+                    nextEl: null,
+                    prevEl: null,
+                    hideOnClick: false,
+                    disabledClass: "swiper-button-disabled",
+                    hiddenClass: "swiper-button-hidden",
+                    lockClass: "swiper-button-lock",
+                    navigationDisabledClass: "swiper-navigation-disabled"
+                }
+            });
+            swiper.navigation = {
+                nextEl: null,
+                prevEl: null
+            };
+            const makeElementsArray = el => {
+                if (!Array.isArray(el)) el = [ el ].filter((e => !!e));
+                return el;
+            };
+            function getEl(el) {
+                let res;
+                if (el && typeof el === "string" && swiper.isElement) {
+                    res = swiper.el.shadowRoot.querySelector(el);
+                    if (res) return res;
+                }
+                if (el) {
+                    if (typeof el === "string") res = [ ...document.querySelectorAll(el) ];
+                    if (swiper.params.uniqueNavElements && typeof el === "string" && res.length > 1 && swiper.el.querySelectorAll(el).length === 1) res = swiper.el.querySelector(el);
+                }
+                if (el && !res) return el;
+                return res;
+            }
+            function toggleEl(el, disabled) {
+                const params = swiper.params.navigation;
+                el = makeElementsArray(el);
+                el.forEach((subEl => {
+                    if (subEl) {
+                        subEl.classList[disabled ? "add" : "remove"](...params.disabledClass.split(" "));
+                        if (subEl.tagName === "BUTTON") subEl.disabled = disabled;
+                        if (swiper.params.watchOverflow && swiper.enabled) subEl.classList[swiper.isLocked ? "add" : "remove"](params.lockClass);
+                    }
+                }));
+            }
+            function update() {
+                const {nextEl, prevEl} = swiper.navigation;
+                if (swiper.params.loop) {
+                    toggleEl(prevEl, false);
+                    toggleEl(nextEl, false);
+                    return;
+                }
+                toggleEl(prevEl, swiper.isBeginning && !swiper.params.rewind);
+                toggleEl(nextEl, swiper.isEnd && !swiper.params.rewind);
+            }
+            function onPrevClick(e) {
+                e.preventDefault();
+                if (swiper.isBeginning && !swiper.params.loop && !swiper.params.rewind) return;
+                swiper.slidePrev();
+                emit("navigationPrev");
+            }
+            function onNextClick(e) {
+                e.preventDefault();
+                if (swiper.isEnd && !swiper.params.loop && !swiper.params.rewind) return;
+                swiper.slideNext();
+                emit("navigationNext");
+            }
+            function init() {
+                const params = swiper.params.navigation;
+                swiper.params.navigation = create_element_if_not_defined_createElementIfNotDefined(swiper, swiper.originalParams.navigation, swiper.params.navigation, {
+                    nextEl: "swiper-button-next",
+                    prevEl: "swiper-button-prev"
+                });
+                if (!(params.nextEl || params.prevEl)) return;
+                let nextEl = getEl(params.nextEl);
+                let prevEl = getEl(params.prevEl);
+                Object.assign(swiper.navigation, {
+                    nextEl,
+                    prevEl
+                });
+                nextEl = makeElementsArray(nextEl);
+                prevEl = makeElementsArray(prevEl);
+                const initButton = (el, dir) => {
+                    if (el) el.addEventListener("click", dir === "next" ? onNextClick : onPrevClick);
+                    if (!swiper.enabled && el) el.classList.add(...params.lockClass.split(" "));
+                };
+                nextEl.forEach((el => initButton(el, "next")));
+                prevEl.forEach((el => initButton(el, "prev")));
+            }
+            function destroy() {
+                let {nextEl, prevEl} = swiper.navigation;
+                nextEl = makeElementsArray(nextEl);
+                prevEl = makeElementsArray(prevEl);
+                const destroyButton = (el, dir) => {
+                    el.removeEventListener("click", dir === "next" ? onNextClick : onPrevClick);
+                    el.classList.remove(...swiper.params.navigation.disabledClass.split(" "));
+                };
+                nextEl.forEach((el => destroyButton(el, "next")));
+                prevEl.forEach((el => destroyButton(el, "prev")));
+            }
+            on("init", (() => {
+                if (swiper.params.navigation.enabled === false) disable(); else {
+                    init();
+                    update();
+                }
+            }));
+            on("toEdge fromEdge lock unlock", (() => {
+                update();
+            }));
+            on("destroy", (() => {
+                destroy();
+            }));
+            on("enable disable", (() => {
+                let {nextEl, prevEl} = swiper.navigation;
+                nextEl = makeElementsArray(nextEl);
+                prevEl = makeElementsArray(prevEl);
+                [ ...nextEl, ...prevEl ].filter((el => !!el)).forEach((el => el.classList[swiper.enabled ? "remove" : "add"](swiper.params.navigation.lockClass)));
+            }));
+            on("click", ((_s, e) => {
+                let {nextEl, prevEl} = swiper.navigation;
+                nextEl = makeElementsArray(nextEl);
+                prevEl = makeElementsArray(prevEl);
+                const targetEl = e.target;
+                if (swiper.params.navigation.hideOnClick && !prevEl.includes(targetEl) && !nextEl.includes(targetEl)) {
+                    if (swiper.pagination && swiper.params.pagination && swiper.params.pagination.clickable && (swiper.pagination.el === targetEl || swiper.pagination.el.contains(targetEl))) return;
+                    let isHidden;
+                    if (nextEl.length) isHidden = nextEl[0].classList.contains(swiper.params.navigation.hiddenClass); else if (prevEl.length) isHidden = prevEl[0].classList.contains(swiper.params.navigation.hiddenClass);
+                    if (isHidden === true) emit("navigationShow"); else emit("navigationHide");
+                    [ ...nextEl, ...prevEl ].filter((el => !!el)).forEach((el => el.classList.toggle(swiper.params.navigation.hiddenClass)));
+                }
+            }));
+            const enable = () => {
+                swiper.el.classList.remove(...swiper.params.navigation.navigationDisabledClass.split(" "));
+                init();
+                update();
+            };
+            const disable = () => {
+                swiper.el.classList.add(...swiper.params.navigation.navigationDisabledClass.split(" "));
+                destroy();
+            };
+            Object.assign(swiper.navigation, {
+                enable,
+                disable,
+                update,
+                init,
+                destroy
+            });
+        }
+        function Parallax({swiper, extendParams, on}) {
+            extendParams({
+                parallax: {
+                    enabled: false
+                }
+            });
+            const setTransform = (el, progress) => {
+                const {rtl} = swiper;
+                const rtlFactor = rtl ? -1 : 1;
+                const p = el.getAttribute("data-swiper-parallax") || "0";
+                let x = el.getAttribute("data-swiper-parallax-x");
+                let y = el.getAttribute("data-swiper-parallax-y");
+                const scale = el.getAttribute("data-swiper-parallax-scale");
+                const opacity = el.getAttribute("data-swiper-parallax-opacity");
+                const rotate = el.getAttribute("data-swiper-parallax-rotate");
+                if (x || y) {
+                    x = x || "0";
+                    y = y || "0";
+                } else if (swiper.isHorizontal()) {
+                    x = p;
+                    y = "0";
+                } else {
+                    y = p;
+                    x = "0";
+                }
+                if (x.indexOf("%") >= 0) x = `${parseInt(x, 10) * progress * rtlFactor}%`; else x = `${x * progress * rtlFactor}px`;
+                if (y.indexOf("%") >= 0) y = `${parseInt(y, 10) * progress}%`; else y = `${y * progress}px`;
+                if (typeof opacity !== "undefined" && opacity !== null) {
+                    const currentOpacity = opacity - (opacity - 1) * (1 - Math.abs(progress));
+                    el.style.opacity = currentOpacity;
+                }
+                let transform = `translate3d(${x}, ${y}, 0px)`;
+                if (typeof scale !== "undefined" && scale !== null) {
+                    const currentScale = scale - (scale - 1) * (1 - Math.abs(progress));
+                    transform += ` scale(${currentScale})`;
+                }
+                if (rotate && typeof rotate !== "undefined" && rotate !== null) {
+                    const currentRotate = rotate * progress * -1;
+                    transform += ` rotate(${currentRotate}deg)`;
+                }
+                el.style.transform = transform;
+            };
+            const setTranslate = () => {
+                const {el, slides, progress, snapGrid} = swiper;
+                utils_elementChildren(el, "[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y], [data-swiper-parallax-opacity], [data-swiper-parallax-scale]").forEach((subEl => {
+                    setTransform(subEl, progress);
+                }));
+                slides.forEach(((slideEl, slideIndex) => {
+                    let slideProgress = slideEl.progress;
+                    if (swiper.params.slidesPerGroup > 1 && swiper.params.slidesPerView !== "auto") slideProgress += Math.ceil(slideIndex / 2) - progress * (snapGrid.length - 1);
+                    slideProgress = Math.min(Math.max(slideProgress, -1), 1);
+                    slideEl.querySelectorAll("[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y], [data-swiper-parallax-opacity], [data-swiper-parallax-scale], [data-swiper-parallax-rotate]").forEach((subEl => {
+                        setTransform(subEl, slideProgress);
+                    }));
+                }));
+            };
+            const setTransition = (duration = swiper.params.speed) => {
+                const {el} = swiper;
+                el.querySelectorAll("[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y], [data-swiper-parallax-opacity], [data-swiper-parallax-scale]").forEach((parallaxEl => {
+                    let parallaxDuration = parseInt(parallaxEl.getAttribute("data-swiper-parallax-duration"), 10) || duration;
+                    if (duration === 0) parallaxDuration = 0;
+                    parallaxEl.style.transitionDuration = `${parallaxDuration}ms`;
+                }));
+            };
+            on("beforeInit", (() => {
+                if (!swiper.params.parallax.enabled) return;
+                swiper.params.watchSlidesProgress = true;
+                swiper.originalParams.watchSlidesProgress = true;
+            }));
+            on("init", (() => {
+                if (!swiper.params.parallax.enabled) return;
+                setTranslate();
+            }));
+            on("setTranslate", (() => {
+                if (!swiper.params.parallax.enabled) return;
+                setTranslate();
+            }));
+            on("setTransition", ((_swiper, duration) => {
+                if (!swiper.params.parallax.enabled) return;
+                setTransition(duration);
+            }));
+        }
         function freeMode({swiper, extendParams, emit, once}) {
             extendParams({
                 freeMode: {
@@ -4262,6 +4555,21 @@
                         slidesPerView: 6.5,
                         spaceBetween: 30
                     }
+                },
+                on: {}
+            });
+            if (document.querySelector(".direct-referrals__body")) new core(".direct-referrals__body", {
+                modules: [ Navigation, Parallax ],
+                parallax: true,
+                observer: true,
+                observeParents: true,
+                slidesPerView: 1,
+                spaceBetween: 50,
+                autoHeight: true,
+                speed: 800,
+                navigation: {
+                    prevEl: ".direct-referrals__button_prev",
+                    nextEl: ".direct-referrals__button_next"
                 },
                 on: {}
             });
