@@ -1825,14 +1825,6 @@
             }
             return parents;
         }
-        function utils_elementTransitionEnd(el, callback) {
-            function fireCallBack(e) {
-                if (e.target !== el) return;
-                callback.call(el, e);
-                el.removeEventListener("transitionend", fireCallBack);
-            }
-            if (callback) el.addEventListener("transitionend", fireCallBack);
-        }
         function utils_elementOuterSize(el, size, includeMargins) {
             const window = ssr_window_esm_getWindow();
             if (includeMargins) return el[size === "width" ? "offsetWidth" : "offsetHeight"] + parseFloat(window.getComputedStyle(el, null).getPropertyValue(size === "width" ? "margin-right" : "margin-top")) + parseFloat(window.getComputedStyle(el, null).getPropertyValue(size === "width" ? "margin-left" : "margin-bottom"));
@@ -4421,169 +4413,11 @@
                 setTransition(duration);
             }));
         }
-        function freeMode({swiper, extendParams, emit, once}) {
-            extendParams({
-                freeMode: {
-                    enabled: false,
-                    momentum: true,
-                    momentumRatio: 1,
-                    momentumBounce: true,
-                    momentumBounceRatio: 1,
-                    momentumVelocityRatio: 1,
-                    sticky: false,
-                    minimumVelocity: .02
-                }
-            });
-            function onTouchStart() {
-                const translate = swiper.getTranslate();
-                swiper.setTranslate(translate);
-                swiper.setTransition(0);
-                swiper.touchEventsData.velocities.length = 0;
-                swiper.freeMode.onTouchEnd({
-                    currentPos: swiper.rtl ? swiper.translate : -swiper.translate
-                });
-            }
-            function onTouchMove() {
-                const {touchEventsData: data, touches} = swiper;
-                if (data.velocities.length === 0) data.velocities.push({
-                    position: touches[swiper.isHorizontal() ? "startX" : "startY"],
-                    time: data.touchStartTime
-                });
-                data.velocities.push({
-                    position: touches[swiper.isHorizontal() ? "currentX" : "currentY"],
-                    time: utils_now()
-                });
-            }
-            function onTouchEnd({currentPos}) {
-                const {params, wrapperEl, rtlTranslate: rtl, snapGrid, touchEventsData: data} = swiper;
-                const touchEndTime = utils_now();
-                const timeDiff = touchEndTime - data.touchStartTime;
-                if (currentPos < -swiper.minTranslate()) {
-                    swiper.slideTo(swiper.activeIndex);
-                    return;
-                }
-                if (currentPos > -swiper.maxTranslate()) {
-                    if (swiper.slides.length < snapGrid.length) swiper.slideTo(snapGrid.length - 1); else swiper.slideTo(swiper.slides.length - 1);
-                    return;
-                }
-                if (params.freeMode.momentum) {
-                    if (data.velocities.length > 1) {
-                        const lastMoveEvent = data.velocities.pop();
-                        const velocityEvent = data.velocities.pop();
-                        const distance = lastMoveEvent.position - velocityEvent.position;
-                        const time = lastMoveEvent.time - velocityEvent.time;
-                        swiper.velocity = distance / time;
-                        swiper.velocity /= 2;
-                        if (Math.abs(swiper.velocity) < params.freeMode.minimumVelocity) swiper.velocity = 0;
-                        if (time > 150 || utils_now() - lastMoveEvent.time > 300) swiper.velocity = 0;
-                    } else swiper.velocity = 0;
-                    swiper.velocity *= params.freeMode.momentumVelocityRatio;
-                    data.velocities.length = 0;
-                    let momentumDuration = 1e3 * params.freeMode.momentumRatio;
-                    const momentumDistance = swiper.velocity * momentumDuration;
-                    let newPosition = swiper.translate + momentumDistance;
-                    if (rtl) newPosition = -newPosition;
-                    let doBounce = false;
-                    let afterBouncePosition;
-                    const bounceAmount = Math.abs(swiper.velocity) * 20 * params.freeMode.momentumBounceRatio;
-                    let needsLoopFix;
-                    if (newPosition < swiper.maxTranslate()) {
-                        if (params.freeMode.momentumBounce) {
-                            if (newPosition + swiper.maxTranslate() < -bounceAmount) newPosition = swiper.maxTranslate() - bounceAmount;
-                            afterBouncePosition = swiper.maxTranslate();
-                            doBounce = true;
-                            data.allowMomentumBounce = true;
-                        } else newPosition = swiper.maxTranslate();
-                        if (params.loop && params.centeredSlides) needsLoopFix = true;
-                    } else if (newPosition > swiper.minTranslate()) {
-                        if (params.freeMode.momentumBounce) {
-                            if (newPosition - swiper.minTranslate() > bounceAmount) newPosition = swiper.minTranslate() + bounceAmount;
-                            afterBouncePosition = swiper.minTranslate();
-                            doBounce = true;
-                            data.allowMomentumBounce = true;
-                        } else newPosition = swiper.minTranslate();
-                        if (params.loop && params.centeredSlides) needsLoopFix = true;
-                    } else if (params.freeMode.sticky) {
-                        let nextSlide;
-                        for (let j = 0; j < snapGrid.length; j += 1) if (snapGrid[j] > -newPosition) {
-                            nextSlide = j;
-                            break;
-                        }
-                        if (Math.abs(snapGrid[nextSlide] - newPosition) < Math.abs(snapGrid[nextSlide - 1] - newPosition) || swiper.swipeDirection === "next") newPosition = snapGrid[nextSlide]; else newPosition = snapGrid[nextSlide - 1];
-                        newPosition = -newPosition;
-                    }
-                    if (needsLoopFix) once("transitionEnd", (() => {
-                        swiper.loopFix();
-                    }));
-                    if (swiper.velocity !== 0) {
-                        if (rtl) momentumDuration = Math.abs((-newPosition - swiper.translate) / swiper.velocity); else momentumDuration = Math.abs((newPosition - swiper.translate) / swiper.velocity);
-                        if (params.freeMode.sticky) {
-                            const moveDistance = Math.abs((rtl ? -newPosition : newPosition) - swiper.translate);
-                            const currentSlideSize = swiper.slidesSizesGrid[swiper.activeIndex];
-                            if (moveDistance < currentSlideSize) momentumDuration = params.speed; else if (moveDistance < 2 * currentSlideSize) momentumDuration = params.speed * 1.5; else momentumDuration = params.speed * 2.5;
-                        }
-                    } else if (params.freeMode.sticky) {
-                        swiper.slideToClosest();
-                        return;
-                    }
-                    if (params.freeMode.momentumBounce && doBounce) {
-                        swiper.updateProgress(afterBouncePosition);
-                        swiper.setTransition(momentumDuration);
-                        swiper.setTranslate(newPosition);
-                        swiper.transitionStart(true, swiper.swipeDirection);
-                        swiper.animating = true;
-                        utils_elementTransitionEnd(wrapperEl, (() => {
-                            if (!swiper || swiper.destroyed || !data.allowMomentumBounce) return;
-                            emit("momentumBounce");
-                            swiper.setTransition(params.speed);
-                            setTimeout((() => {
-                                swiper.setTranslate(afterBouncePosition);
-                                utils_elementTransitionEnd(wrapperEl, (() => {
-                                    if (!swiper || swiper.destroyed) return;
-                                    swiper.transitionEnd();
-                                }));
-                            }), 0);
-                        }));
-                    } else if (swiper.velocity) {
-                        emit("_freeModeNoMomentumRelease");
-                        swiper.updateProgress(newPosition);
-                        swiper.setTransition(momentumDuration);
-                        swiper.setTranslate(newPosition);
-                        swiper.transitionStart(true, swiper.swipeDirection);
-                        if (!swiper.animating) {
-                            swiper.animating = true;
-                            utils_elementTransitionEnd(wrapperEl, (() => {
-                                if (!swiper || swiper.destroyed) return;
-                                swiper.transitionEnd();
-                            }));
-                        }
-                    } else swiper.updateProgress(newPosition);
-                    swiper.updateActiveIndex();
-                    swiper.updateSlidesClasses();
-                } else if (params.freeMode.sticky) {
-                    swiper.slideToClosest();
-                    return;
-                } else if (params.freeMode) emit("_freeModeNoMomentumRelease");
-                if (!params.freeMode.momentum || timeDiff >= params.longSwipesMs) {
-                    swiper.updateProgress();
-                    swiper.updateActiveIndex();
-                    swiper.updateSlidesClasses();
-                }
-            }
-            Object.assign(swiper, {
-                freeMode: {
-                    onTouchStart,
-                    onTouchMove,
-                    onTouchEnd
-                }
-            });
-        }
         function initSliders() {
             if (document.querySelector(".coins-statisti__swiper")) new core(".coins-statisti__swiper", {
-                modules: [ freeMode ],
+                modules: [],
                 observer: true,
                 observeParents: true,
-                freeMode: true,
                 speed: 800,
                 allowTouchMove: true,
                 simulateTouch: true,
