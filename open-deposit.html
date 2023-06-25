@@ -5,7 +5,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/style.min.css?_v=20230529180542">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230625181305">
+	<link rel="shortcut icon" type="image/png" href="img/logo.svg" />
 	<title>Главная</title>
 </head>
 
@@ -230,90 +231,574 @@
 							</div>
 						</div>
 						<div class="open-deposit__body">
-							<div class="open-deposit__block block-deposit">
-								<div class="block-deposit__left">
-									<div class="block-deposit__wrapper">
-										<div class="block-deposit__balance account-balance">
-											<div class="account-balance__wrapper">
-												<div class="account-balance__header">
-													<div class="account-balance__title">Account Balance</div>
-													<button class="account-balance__withdrawal">Withdrawal</button>
+							<div data-tabs class="open-deposit__tabs">
+								<nav data-tabs-titles class="open-deposit__navigation">
+									<button type="button" class="open-deposit__title _tab-active">
+										<span>Open from balance</span>
+									</button>
+									<button type="button" class="open-deposit__title">
+										<span>Open from wallet</span>
+									</button>
+								</nav>
+								<div data-tabs-body class="open-deposit__content">
+									<div class="open-deposit__body">
+										<div class="open-deposit__block block-withdrawal">
+											<div class="block-withdrawal__wrapper">
+												<div class="block-withdrawal__header">
+													<h3 class="block-withdrawal__title">Open from Balance</h3>
 												</div>
-												<div class="account-balance__balance">
-													<div class="account-balance__balance-numbers">
-														$<span>27 854.00</span>
-													</div>
-												</div>
-												<a href="#" class="account-balance__button button button_white">
-													<span class="button__name">Funds</span>
-													<span class="button__decor"></span>
-												</a>
-											</div>
-										</div>
-										<div class="block-deposit__wallet wallet-balance">
-											<div class="wallet-balance__wrap">
-												<div class="wallet-balance__wrapper">
-													<h4 class="wallet-balance__title">Wallet Balance</h4>
-													<div class="wallet-balance__select select-wallet">
-														<select data-scroll="150" name="form[]" class="select-wallet__select">
-															<option value="1" selected>BITCOIN</option>
-															<option value="2">BITCOIN №2</option>
-															<option value="3">BITCOIN №3</option>
-															<option value="4">BITCOIN №4</option>
-														</select>
-														<div class="select-wallet__coin">
-															<img src="img/open-deposit/select-coin.png" alt="coin">
+												<form action="#" class="block-withdrawal__body">
+													<div data-one-select class="block-withdrawal__controls">
+														<div class="block-withdrawal__select block-withdrawal__select_percent select-coins">
+															<select name="form[]" class="form">
+																<option value="1" selected>3% daily for 25 days</option>
+																<option value="2">3% daily for 25 days №2</option>
+																<option value="3">3% daily for 25 days №3</option>
+																<option value="4">3% daily for 25 days №4</option>
+															</select>
+														</div>
+														<div class="block-withdrawal__select select-coins">
+															<select name="form[]" class="form">
+																<option data-asset="img/open-deposit/select-coin.png" value="1" selected>Bitcoin №1</option>
+																<option data-asset="img/open-deposit/select-coin.png" value="2">Bitcoin №2</option>
+																<option data-asset="img/open-deposit/select-coin.png" value="3">Bitcoin №3</option>
+																<option data-asset="img/open-deposit/select-coin.png" value="4">Bitcoin №4</option>
+															</select>
+														</div>
+														<div class="block-withdrawal__enter">
+															<div class="block-withdrawal__input-wrapper">
+																<input placeholder="0.000000" autocomplete="off" type="text" class="block-withdrawal__input">
+															</div>
+															<div class="block-withdrawal__coin">
+																<span>BTC</span>
+															</div>
 														</div>
 													</div>
-													<div class="wallet-balance__footer">
-														<div class="wallet-balance__numbers">0.00000000</div>
-														<div class="wallet-balance__name">BTC</div>
+													<button class="block-withdrawal__button button">
+														<span class="button__name">Create Deposit</span>
+														<span class="button__decor"></span>
+													</button>
+												</form>
+												<div class="block-withdrawal__footer">
+													<div class="block-withdrawal__active active-block">
+														<div class="active-block__header">
+															<h4 class="active-block__title">Active Deposits</h4>
+														</div>
+														<div class="active-block__body">
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-1.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		USDT TRC-20
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>USD</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-2.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Dogecoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>DOGE</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-3.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Bitcoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00000000</div>
+																	<div class="active-block__coin">
+																		<span>DOGE</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-4.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Ethereum
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>ETH</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-5.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Litecoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>LTC</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-6.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Binance
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>BNB</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-7.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Epaycore
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>USD</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="block-withdrawal__active active-block active-block_dark">
+														<div class="active-block__header">
+															<h4 class="active-block__title">Active Balances</h4>
+														</div>
+														<div class="active-block__body">
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-1.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		USDT TRC-20
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>USD</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-2.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Dogecoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>DOGE</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-3.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Bitcoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00000000</div>
+																	<div class="active-block__coin">
+																		<span>DOGE</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-4.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Ethereum
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>ETH</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-5.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Litecoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>LTC</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-6.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Binance
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>BNB</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-7.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Epaycore
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>USD</span>
+																	</div>
+																</div>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<button class="block-deposit__button button">
-										<span class="button__name">Create Deposit</span>
-										<span class="button__decor"></span>
-									</button>
-								</div>
-								<div class="block-deposit__right">
-									<div class="block-deposit__open open-deposit-block">
-										<div class="open-deposit-block__wrapper">
-											<div class="open-deposit-block__content">
-												<div class="open-deposit-block__header">
-													<h4 class="open-deposit-block__title">Open Deposit</h4>
+									<div class="open-deposit__body">
+										<div class="open-deposit__block block-withdrawal">
+											<div class="block-withdrawal__wrapper">
+												<div class="block-withdrawal__header">
+													<h3 class="block-withdrawal__title">Open from Wallet</h3>
 												</div>
-												<ul class="open-deposit-block__list">
-													<li class="open-deposit-block__item">
-														<span class="open-deposit-block__item_yellow">3%</span> daily for <span class="open-deposit-block__item_blue">25 days (Principal Back)</span>
-													</li>
-													<li class="open-deposit-block__item">
-														<span>175%</span> total return
-													</li>
-												</ul>
-												<a href="#" class="open-deposit-block__settings settings-wallet">
-													Setting Wallet
-												</a>
-											</div>
-											<div class="open-deposit-block__image"><img src="img/open-deposit/3.png" alt="3%"></div>
-										</div>
-										<div class="open-deposit-block__footer">
-											<div class="open-deposit-block__select select-coins">
-												<select data-scroll="150" name="form[]" class="select-coins__select">
-													<option data-asset="img/open-deposit/select-coin.png" value="1" selected>Bitcoin</option>
-													<option data-asset="img/open-deposit/select-coin.png" value="2">Bitcoin №2</option>
-													<option data-asset="img/open-deposit/select-coin.png" value="3">Bitcoin №3</option>
-													<option data-asset="img/open-deposit/select-coin.png" value="4">Bitcoin №4</option>
-												</select>
-											</div>
-											<div class="open-deposit-block__info">
-												<div class="open-deposit-block__numbers">
-													0.00000000
-												</div>
-												<div class="open-deposit-block__icon">
-													<img src="img/open-deposit/btc-icon.png" alt="btc">
+												<form action="#" class="block-withdrawal__body">
+													<div data-one-select class="block-withdrawal__controls">
+														<div class="block-withdrawal__select block-withdrawal__select_percent select-coins">
+															<select name="form[]" class="form">
+																<option value="1" selected>3% daily for 25 days</option>
+																<option value="2">3% daily for 25 days №2</option>
+																<option value="3">3% daily for 25 days №3</option>
+																<option value="4">3% daily for 25 days №4</option>
+															</select>
+														</div>
+														<div class="block-withdrawal__select select-coins">
+															<select name="form[]" class="form">
+																<option data-asset="img/open-deposit/select-coin.png" value="1" selected>Bitcoin №1</option>
+																<option data-asset="img/open-deposit/select-coin.png" value="2">Bitcoin №2</option>
+																<option data-asset="img/open-deposit/select-coin.png" value="3">Bitcoin №3</option>
+																<option data-asset="img/open-deposit/select-coin.png" value="4">Bitcoin №4</option>
+															</select>
+														</div>
+														<div class="block-withdrawal__enter">
+															<div class="block-withdrawal__input-wrapper">
+																<input placeholder="0.000000" autocomplete="off" type="text" class="block-withdrawal__input">
+															</div>
+															<div class="block-withdrawal__coin">
+																<span>BTC</span>
+															</div>
+														</div>
+													</div>
+													<button class="block-withdrawal__button button">
+														<span class="button__name">Create Deposit</span>
+														<span class="button__decor"></span>
+													</button>
+												</form>
+												<div class="block-withdrawal__footer">
+													<div class="block-withdrawal__active active-block">
+														<div class="active-block__header">
+															<h4 class="active-block__title">Active Deposits</h4>
+														</div>
+														<div class="active-block__body">
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-1.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		USDT TRC-20
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>USD</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-2.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Dogecoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>DOGE</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-3.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Bitcoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00000000</div>
+																	<div class="active-block__coin">
+																		<span>DOGE</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-4.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Ethereum
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>ETH</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-5.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Litecoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>LTC</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-6.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Binance
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>BNB</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-7.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Epaycore
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>USD</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="block-withdrawal__active active-block active-block_dark">
+														<div class="active-block__header">
+															<h4 class="active-block__title">Active Balances</h4>
+														</div>
+														<div class="active-block__body">
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-1.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		USDT TRC-20
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>USD</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-2.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Dogecoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>DOGE</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-3.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Bitcoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00000000</div>
+																	<div class="active-block__coin">
+																		<span>DOGE</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-4.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Ethereum
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>ETH</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-5.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Litecoin
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>LTC</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-6.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Binance
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>BNB</span>
+																	</div>
+																</div>
+															</div>
+															<div class="active-block__item">
+																<div class="active-block__info">
+																	<div class="active-block__icon">
+																		<img src="img/withdrawal/coin-7.svg" alt="Coin">
+																	</div>
+																	<div class="active-block__name">
+																		Epaycore
+																	</div>
+																</div>
+																<div class="active-block__value">
+																	<div class="active-block__balance">0.00</div>
+																	<div class="active-block__coin">
+																		<span>USD</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -329,7 +814,7 @@
 
 
 
-	<script src="js/app.min.js?_v=20230529180542"></script>
+	<script src="js/app.min.js?_v=20230625181305"></script>
 </body>
 
 </html>

@@ -5,7 +5,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/style.min.css?_v=20230529180542">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230625181305">
+	<link rel="shortcut icon" type="image/png" href="img/logo.svg" />
 	<title>Главная</title>
 </head>
 
@@ -230,50 +231,52 @@
 							</div>
 						</div>
 						<div class="dashboard__body">
-							<div class="dashboard__block block-deposit">
-								<div class="block-deposit__left">
-									<div class="block-deposit__wrapper">
-										<div class="block-deposit__balance account-balance">
-											<div class="account-balance__wrapper">
-												<div class="account-balance__header">
-													<div class="account-balance__title">Account Balance</div>
-													<button class="account-balance__withdrawal">Withdrawal</button>
-												</div>
-												<div class="account-balance__balance">
-													<div class="account-balance__balance-numbers">
-														$<span>27 854.00</span>
-													</div>
-												</div>
-												<a href="#" class="account-balance__button button button_white">
-													<span class="button__name">Funds</span>
-													<span class="button__decor"></span>
-												</a>
+							<form action="#" class="dashboard__form">
+								<div class="dashboard__block block-deposit">
+									<div data-one-select class="block-deposit__wrapper">
+										<div class="block-deposit__column">
+											<div class="block-deposit__header">
+												<h3 class="block-deposit__title">Account Balance</h3>
+												<h4 class="block-deposit__withdrawal">Withdrawal</h4>
+											</div>
+											<div class="block-deposit__select select-coins">
+												<select name="form[]" class="form">
+													<option data-asset="img/withdrawal/coin-1.svg" value="1" selected>USDT TRC-20</option>
+													<option data-asset="img/withdrawal/coin-2.svg" value="2">USDT TRC-20 №2</option>
+													<option data-asset="img/withdrawal/coin-3.svg" value="3">USDT TRC-20 №3</option>
+													<option data-asset="img/withdrawal/coin-4.svg" value="4">USDT TRC-20 №4</option>
+												</select>
+											</div>
+											<div class="block-deposit__footer">
+												<input autocomplete="off" type="text" value="0.00" placeholder="0.00" class="block-deposit__input">
 											</div>
 										</div>
-										<div class="block-deposit__wallet wallet-balance">
-											<div class="wallet-balance__wrap">
-												<div class="wallet-balance__wrapper">
-													<h4 class="wallet-balance__title">Wallet Balance</h4>
-													<div class="wallet-balance__select select-wallet">
-														<select data-scroll="150" name="form[]" class="select-wallet__select">
-															<option value="1" selected>BITCOIN</option>
-															<option value="2">BITCOIN №2</option>
-															<option value="3">BITCOIN №3</option>
-															<option value="4">BITCOIN №4</option>
-														</select>
-														<div class="select-wallet__coin">
-															<img src="img/open-deposit/select-coin.png" alt="coin">
-														</div>
-													</div>
-													<div class="wallet-balance__footer">
-														<div class="wallet-balance__numbers">0.00000000</div>
-														<div class="wallet-balance__name">BTC</div>
-													</div>
-												</div>
+										<div class="block-deposit__column block-deposit__column_dark">
+											<div class="block-deposit__header">
+												<h3 class="block-deposit__title">Active Deposits</h3>
+											</div>
+											<div class="block-deposit__select select-coins">
+												<select name="form[]" class="form">
+													<option data-asset="img/withdrawal/coin-3.svg" value="1" selected>Bitcoin</option>
+													<option data-asset="img/withdrawal/coin-3.svg" value="2">Bitcoin №2</option>
+													<option data-asset="img/withdrawal/coin-3.svg" value="3">Bitcoin №3</option>
+													<option data-asset="img/withdrawal/coin-3.svg" value="4">Bitcoin №4</option>
+												</select>
+											</div>
+											<div class="block-deposit__footer">
+												<input value="0.00000000" readonly autocomplete="off" type="text" placeholder="0.00" class="block-deposit__input">
 											</div>
 										</div>
 									</div>
-									<div class="block-deposit__profit profit-block">
+								</div>
+								<div class="dashboard__controls">
+									<div class="dashboard__button">
+										<button type="button" class="dashboard__send button">
+											<span class="button__name">Make a deposit</span>
+											<span class="button__decor"></span>
+										</button>
+									</div>
+									<div class="dashboard__profit profit-block">
 										<div class="profit-block__image"><img src="img/dashboard/profit-img.png" alt="Profit"></div>
 										<div class="profit-block__info">
 											<div class="profit-block__title">Current Profit</div>
@@ -283,7 +286,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</form>
 							<div class="dashboard__referral referral-dashboard">
 								<div class="referral-dashboard__items">
 									<div class="referral-dashboard__item item-dashboard">
@@ -347,38 +350,256 @@
 								</div>
 							</div>
 						</div>
-						<div class="dashboard__information profile-information">
-							<div class="profile-information__wrapper">
-								<h3 class="profile-information__title">Profile Information</h3>
-								<div class="profile-information__items">
-									<div class="profile-information__item">
-										<div class="profile-information__icon">
-											<img src="img/dashboard/info-icon-1.svg" alt="Icon">
+						<div class="dashboard__direct-referrals direct-referrals">
+							<div class="direct-referrals__head">
+								<h3 class="direct-referrals__title">Total Direct Referrals</h3>
+								<div class="direct-referrals__balance">$<span>7 854.00</span></div>
+							</div>
+							<div class="direct-referral__swiper">
+								<div class="direct-referrals__body swiper">
+									<button class="direct-referrals__button direct-referrals__button_prev">
+										<span>
+											<svg width="6" height="11" viewBox="0 0 6 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" clip-rule="evenodd" d="M5.78266 10.7852C6.07245 10.4988 6.07245 10.0345 5.78266 9.74812L1.48409 5.5L5.78266 1.25188C6.07245 0.965495 6.07245 0.501173 5.78266 0.214789C5.49287 -0.0715961 5.02304 -0.0715961 4.73325 0.214789L0.434679 4.46291C-0.144893 5.03568 -0.144891 5.96432 0.434679 6.53709L4.73325 10.7852C5.02304 11.0716 5.49287 11.0716 5.78266 10.7852Z" fill="#3E74E3" />
+											</svg>
+										</span>
+									</button>
+									<div class="direct-referrals__wrapper swiper-wrapper">
+										<div class="direct-referrals__slide swiper-slide">
+											<div data-prlx-mouse-wrapper class="direct-referrals__item item-referral">
+												<div data-swiper-parallax="50" data-swiper-parallax-opacity="0" class="item-referral__header">
+													<div data-prlx-mouse class="item-referral__image">
+														<div class="item-referral__img">
+															<img src="img/dashboard/bang-1.png" alt="bang">
+														</div>
+													</div>
+												</div>
+												<div class="item-referral__body">
+													<div class="item-referral__information">
+														<h4 data-swiper-parallax="100" data-swiper-parallax-opacity="0" class="item-referral__title">Next Direct Referrals</h4>
+														<div data-swiper-parallax="150" data-swiper-parallax-opacity="0" class="item-referral__value">
+															<div class="item-referral__current-value">
+																$<span>1000</span>
+															</div>
+															+
+															<div class="item-referral__bonus">
+																$50 bonus
+															</div>
+														</div>
+													</div>
+													<div data-swiper-parallax="200" data-swiper-parallax-opacity="0" class="item-referral__progress">
+														<div class="item-referral__progress-head">
+															<div class="item-referral__min">$0</div>
+															<div class="item-referral__max">$1000</div>
+														</div>
+														<div class="item-referral__line">
+															<div style="width: 45%;" class="item-referral__line-wrapper">
+																<div class="item-referral__line-value">$19542.45</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
-										<div class="profile-information__info">
-											<div class="profile-information__description">Registration Date</div>
-											<div class="profile-information__date">
-												<div class="profile-information__month">10 May 2021</div>
-												<div class="profile-information__time">
-													<span>15:46</span>
+										<div class="direct-referrals__slide swiper-slide">
+											<div data-prlx-mouse-wrapper class="direct-referrals__item item-referral">
+												<div data-swiper-parallax="50" data-swiper-parallax-opacity="0" class="item-referral__header">
+													<div data-prlx-mouse class="item-referral__image">
+														<div class="item-referral__img">
+															<img src="img/dashboard/bang-2.png" alt="bang">
+														</div>
+														<div class="item-referral__rank">
+															<img src="img/dashboard/rank-1.svg" alt="rank">
+														</div>
+													</div>
+												</div>
+												<div class="item-referral__body">
+													<div class="item-referral__information">
+														<h4 data-swiper-parallax="100" data-swiper-parallax-opacity="0" class="item-referral__title">Next Direct Referrals</h4>
+														<div data-swiper-parallax="150" data-swiper-parallax-opacity="0" class="item-referral__value">
+															<div class="item-referral__current-value">
+																$<span>10000</span>
+															</div>
+															+
+															<div class="item-referral__bonus">
+																$500 bonus
+															</div>
+														</div>
+													</div>
+													<div data-swiper-parallax="200" data-swiper-parallax-opacity="0" class="item-referral__progress">
+														<div class="item-referral__progress-head">
+															<div class="item-referral__min">$5000</div>
+															<div class="item-referral__max">$250</div>
+														</div>
+														<div class="item-referral__line">
+															<div style="width: 45%;" class="item-referral__line-wrapper">
+																<div class="item-referral__line-value">$19542.45</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="direct-referrals__slide swiper-slide">
+											<div data-prlx-mouse-wrapper class="direct-referrals__item item-referral">
+												<div data-swiper-parallax="50" data-swiper-parallax-opacity="0" class="item-referral__header">
+													<div data-prlx-mouse class="item-referral__image">
+														<div class="item-referral__img">
+															<img src="img/dashboard/bang-3.png" alt="bang">
+														</div>
+														<div class="item-referral__rank">
+															<img src="img/dashboard/rank-2.svg" alt="rank">
+														</div>
+													</div>
+												</div>
+												<div class="item-referral__body">
+													<div class="item-referral__information">
+														<h4 data-swiper-parallax="100" data-swiper-parallax-opacity="0" class="item-referral__title">Next Direct Referrals</h4>
+														<div data-swiper-parallax="150" data-swiper-parallax-opacity="0" class="item-referral__value">
+															<div class="item-referral__current-value">
+																$<span>10000</span>
+															</div>
+															+
+															<div class="item-referral__bonus">
+																$500 bonus
+															</div>
+														</div>
+													</div>
+													<div data-swiper-parallax="200" data-swiper-parallax-opacity="0" class="item-referral__progress">
+														<div class="item-referral__progress-head">
+															<div class="item-referral__min">$5000</div>
+															<div class="item-referral__max">$250</div>
+														</div>
+														<div class="item-referral__line">
+															<div style="width: 45%;" class="item-referral__line-wrapper">
+																<div class="item-referral__line-value">$19542.45</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="direct-referrals__slide swiper-slide">
+											<div data-prlx-mouse-wrapper class="direct-referrals__item item-referral">
+												<div data-swiper-parallax="50" data-swiper-parallax-opacity="0" class="item-referral__header">
+													<div data-prlx-mouse class="item-referral__image">
+														<div class="item-referral__img">
+															<img src="img/dashboard/bang-4.png" alt="bang">
+														</div>
+														<div class="item-referral__rank">
+															<img src="img/dashboard/rank-3.svg" alt="rank">
+														</div>
+													</div>
+												</div>
+												<div class="item-referral__body">
+													<div class="item-referral__information">
+														<h4 data-swiper-parallax="100" data-swiper-parallax-opacity="0" class="item-referral__title">Next Direct Referrals</h4>
+														<div data-swiper-parallax="150" data-swiper-parallax-opacity="0" class="item-referral__value">
+															<div class="item-referral__current-value">
+																$<span>25000</span>
+															</div>
+															+
+															<div class="item-referral__bonus">
+																$1000 bonus
+															</div>
+														</div>
+													</div>
+													<div data-swiper-parallax="200" data-swiper-parallax-opacity="0" class="item-referral__progress">
+														<div class="item-referral__progress-head">
+															<div class="item-referral__min">$5000</div>
+															<div class="item-referral__max">$250</div>
+														</div>
+														<div class="item-referral__line">
+															<div style="width: 45%;" class="item-referral__line-wrapper">
+																<div class="item-referral__line-value">$19542.45</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="direct-referrals__slide swiper-slide">
+											<div data-prlx-mouse-wrapper class="direct-referrals__item item-referral">
+												<div data-swiper-parallax="50" data-swiper-parallax-opacity="0" class="item-referral__header">
+													<div data-prlx-mouse class="item-referral__image">
+														<div class="item-referral__img">
+															<img src="img/dashboard/bang-5.png" alt="bang">
+														</div>
+														<div class="item-referral__rank">
+															<img src="img/dashboard/rank-4.svg" alt="rank">
+														</div>
+													</div>
+												</div>
+												<div class="item-referral__body">
+													<div class="item-referral__information">
+														<h4 data-swiper-parallax="100" data-swiper-parallax-opacity="0" class="item-referral__title">Next Direct Referrals</h4>
+														<div data-swiper-parallax="150" data-swiper-parallax-opacity="0" class="item-referral__value">
+															<div class="item-referral__current-value">
+																$<span>50000</span>
+															</div>
+															+
+															<div class="item-referral__bonus">
+																$2000 bonus
+															</div>
+														</div>
+													</div>
+													<div data-swiper-parallax="200" data-swiper-parallax-opacity="0" class="item-referral__progress">
+														<div class="item-referral__progress-head">
+															<div class="item-referral__min">$5000</div>
+															<div class="item-referral__max">$250</div>
+														</div>
+														<div class="item-referral__line">
+															<div style="width: 45%;" class="item-referral__line-wrapper">
+																<div class="item-referral__line-value">$19542.45</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="direct-referrals__slide swiper-slide">
+											<div data-prlx-mouse-wrapper class="direct-referrals__item item-referral">
+												<div data-swiper-parallax="50" data-swiper-parallax-opacity="0" class="item-referral__header">
+													<div data-prlx-mouse class="item-referral__image">
+														<div class="item-referral__img">
+															<img src="img/dashboard/bang-6.png" alt="bang">
+														</div>
+														<div class="item-referral__rank">
+															<img src="img/dashboard/rank-5.svg" alt="rank">
+														</div>
+													</div>
+												</div>
+												<div class="item-referral__body">
+													<div class="item-referral__information">
+														<h4 data-swiper-parallax="100" data-swiper-parallax-opacity="0" class="item-referral__title">Next Direct Referrals</h4>
+														<div data-swiper-parallax="150" data-swiper-parallax-opacity="0" class="item-referral__value">
+															<div class="item-referral__current-value">
+																<span>N/A</span>
+															</div>
+														</div>
+													</div>
+													<div data-swiper-parallax="200" data-swiper-parallax-opacity="0" class="item-referral__progress">
+														<div class="item-referral__progress-head">
+															<div class="item-referral__min">$5000</div>
+															<div class="item-referral__max">$250</div>
+														</div>
+														<div class="item-referral__line">
+															<div style="width: 45%;" class="item-referral__line-wrapper">
+																<div class="item-referral__line-value">$19542.45</div>
+															</div>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="profile-information__item">
-										<div class="profile-information__icon">
-											<img src="img/dashboard/info-icon-2.svg" alt="Icon">
-										</div>
-										<div class="profile-information__info">
-											<div class="profile-information__description">Last Access</div>
-											<div class="profile-information__date">
-												<div class="profile-information__month">10 May 2021</div>
-												<div class="profile-information__time">
-													<span>15:46</span>
-												</div>
-											</div>
-										</div>
-									</div>
+									<button class="direct-referrals__button direct-referrals__button_next">
+										<span>
+											<svg width="6" height="11" viewBox="0 0 6 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" clip-rule="evenodd" d="M0.217339 0.214788C-0.0724464 0.501173 -0.0724464 0.965494 0.217339 1.25188L4.51591 5.5L0.21734 9.74812C-0.072446 10.0345 -0.072446 10.4988 0.21734 10.7852C0.507126 11.0716 0.976961 11.0716 1.26675 10.7852L5.56532 6.53709C6.14489 5.96432 6.14489 5.03568 5.56532 4.46291L1.26675 0.214788C0.976961 -0.0715962 0.507125 -0.0715961 0.217339 0.214788Z" fill="#F7931A" />
+											</svg>
+										</span>
+									</button>
 								</div>
 							</div>
 						</div>
@@ -390,7 +611,7 @@
 
 
 
-	<script src="js/app.min.js?_v=20230529180542"></script>
+	<script src="js/app.min.js?_v=20230625181305"></script>
 </body>
 
 </html>

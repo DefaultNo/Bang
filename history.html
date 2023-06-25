@@ -5,7 +5,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/style.min.css?_v=20230529180542">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230625181305">
+	<link rel="shortcut icon" type="image/png" href="img/logo.svg" />
 	<title>Главная</title>
 </head>
 
@@ -236,7 +237,7 @@
 										<div class="deposit-block__header-top">
 											<div class="deposit-block__title">Transactions</div>
 											<div class="deposit-block__controls controls-block">
-												<div class="controls-block__selects">
+												<div data-one-select class="controls-block__selects">
 													<div class="controls-block__select select-control">
 														<div class="select-control__name">Select</div>
 														<div class="select-control__select">
@@ -291,9 +292,11 @@
 												</div>
 												<div class="deposit-block__item-text">8500.00 USD</div>
 												<div class="deposit-block__item-text deposit-block__item-text_operation">
-													<span>Replenishment</span>
+													<span>Transfer from external processing</span>
 												</div>
-												<div class="deposit-block__item-text deposit-block__item-text_description">Loremipsume</div>
+												<div class="deposit-block__item-text deposit-block__item-text_description"><span>
+														Batch id = <span>0xeee9be5701ad8400374444810742a37e8ed02f0c4697921d258e86312b15e66f</span>
+													</span></div>
 												<div class="deposit-block__item-text deposit-block__item-text_payment">
 													<span class="deposit-block__icon">
 														<img src="img/open-deposit/select-coin.png" alt="btc">
@@ -443,7 +446,7 @@
 
 
 
-	<script src="js/app.min.js?_v=20230529180542"></script>
+	<script src="js/app.min.js?_v=20230625181305"></script>
 </body>
 
 </html>

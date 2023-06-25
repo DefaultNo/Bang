@@ -5,7 +5,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/style.min.css?_v=20230529184129">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230625181305">
+	<link rel="shortcut icon" type="image/png" href="img/logo.svg" />
 	<title>Главная</title>
 </head>
 
@@ -29,11 +30,28 @@
 							<a href="support.html" class="menu__link">Contact Us</a>
 						</li>
 					</ul>
+					<div class="menu__buttons">
+						<a href="login.html" class="header__button">
+							<span href="#" class="header__login">Login</span>
+							<span class="header__login-decor"></span>
+						</a>
+						<a href="registration.html" class="header__button">
+							<span href="#" class="header__login">Registration</span>
+							<span class="header__login-decor"></span>
+						</a>
+					</div>
 				</nav>
-				<a href="login.html" class="header__button">
-					<span href="#" class="header__login">Login</span>
-					<span class="header__login-decor"></span>
-				</a>
+				<div class="header__buttons">
+					<a href="login.html" class="header__button">
+						<span href="#" class="header__login">Login</span>
+						<span class="header__login-decor"></span>
+					</a>
+					<a href="registration.html" class="header__button">
+						<span href="#" class="header__login">Registration</span>
+						<span class="header__login-decor"></span>
+					</a>
+				</div>
+
 				<button class="header__burger">
 					<span></span>
 					<span></span>
@@ -131,7 +149,26 @@
 					<div class="home__section section-contact _anim-item _anim-no-hide">
 						<div class="section-contact__sec-wrapper">
 							<div class="section-contact__wrapper _anim-item _anim-no-hide">
-								<h3 class="section-contact__title">Contact</h3>
+								<div class="section-contact__header">
+									<h3 class="section-contact__title">Contact</h3>
+									<div class="section-contact__socials">
+										<a href="#" class="section-contact__social">
+											<span>
+												<svg width="8" height="11" viewBox="0 0 8 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M6.66667 8H4C3.26467 8 2.66667 7.402 2.66667 6.66667V6H6.66667C7.02029 6 7.35943 5.85952 7.60948 5.60948C7.85952 5.35943 8 5.02029 8 4.66667C8 4.31304 7.85952 3.97391 7.60948 3.72386C7.35943 3.47381 7.02029 3.33333 6.66667 3.33333H2.66667V1.33333C2.66667 0.979711 2.52619 0.640573 2.27614 0.390524C2.02609 0.140476 1.68696 0 1.33333 0C0.979711 0 0.640573 0.140476 0.390524 0.390524C0.140476 0.640573 0 0.979711 0 1.33333V6.66667C0 8.87267 1.794 10.6667 4 10.6667H6.66667C7.02029 10.6667 7.35943 10.5262 7.60948 10.2761C7.85952 10.0261 8 9.68695 8 9.33333C8 8.97971 7.85952 8.64057 7.60948 8.39052C7.35943 8.14048 7.02029 8 6.66667 8Z" fill="#232323" />
+												</svg>
+											</span>
+										</a>
+										<a href="#" class="section-contact__social">
+											<span>
+												<svg width="13" height="11" viewBox="0 0 13 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M0.754533 4.43179C0.754533 4.43179 6.19771 2.19791 8.08549 1.4113C8.80917 1.09669 11.2633 0.08983 11.2633 0.08983C11.2633 0.08983 12.396 -0.350632 12.3016 0.719105C12.2701 1.15961 12.0184 2.70129 11.7667 4.36886C11.3892 6.72863 10.9801 9.30861 10.9801 9.30861C10.9801 9.30861 10.9172 10.0323 10.3823 10.1581C9.84747 10.284 8.96646 9.71768 8.80917 9.59179C8.68328 9.49743 6.4494 8.08155 5.63136 7.38935C5.41111 7.20058 5.15941 6.82304 5.6628 6.38253C6.7955 5.34424 8.14841 4.05425 8.96646 3.2362C9.34404 2.85862 9.72158 1.97765 8.14841 3.04739C5.91453 4.58912 3.71209 6.03644 3.71209 6.03644C3.71209 6.03644 3.20867 6.35105 2.26478 6.06787C1.32084 5.78474 0.219621 5.40716 0.219621 5.40716C0.219621 5.40716 -0.535457 4.93521 0.754533 4.43179Z" fill="#232323" />
+												</svg>
+											</span>
+										</a>
+									</div>
+								</div>
+
 								<div class="section-contact__contact">
 									<div class="section-contact__info">
 										<div class="section-contact__label">Email:</div>
@@ -280,7 +317,12 @@
 							<div class="bonus-popup__item">
 								<div class="bonus-popup__item-wrapper">
 									<div class="bonus-popup__item-wrap">
-										<div class="bonus-popup__value">$1,000</div>
+										<div class="bonus-popup__value">
+											<div class="bonus-popup__icon">
+												<img src="img/home/popup/bang-1.png" alt="bang">
+											</div>
+											<div class="bonus-popup__value-text">$1,000</div>
+										</div>
 										<div class="bonus-popup__bonus">$50 Bonus</div>
 									</div>
 								</div>
@@ -288,7 +330,12 @@
 							<div class="bonus-popup__item">
 								<div class="bonus-popup__item-wrapper">
 									<div class="bonus-popup__item-wrap">
-										<div class="bonus-popup__value">$5,000</div>
+										<div class="bonus-popup__value">
+											<div class="bonus-popup__icon">
+												<img src="img/home/popup/bang-2.png" alt="bang">
+											</div>
+											<div class="bonus-popup__value-text">$5,000</div>
+										</div>
 										<div class="bonus-popup__bonus">$250 Bonus</div>
 									</div>
 								</div>
@@ -296,7 +343,12 @@
 							<div class="bonus-popup__item">
 								<div class="bonus-popup__item-wrapper">
 									<div class="bonus-popup__item-wrap">
-										<div class="bonus-popup__value">$10,000</div>
+										<div class="bonus-popup__value">
+											<div class="bonus-popup__icon">
+												<img src="img/home/popup/bang-3.png" alt="bang">
+											</div>
+											<div class="bonus-popup__value-text">$10,000</div>
+										</div>
 										<div class="bonus-popup__bonus">$500 Bonus</div>
 									</div>
 								</div>
@@ -304,7 +356,12 @@
 							<div class="bonus-popup__item">
 								<div class="bonus-popup__item-wrapper">
 									<div class="bonus-popup__item-wrap">
-										<div class="bonus-popup__value">$25,000</div>
+										<div class="bonus-popup__value">
+											<div class="bonus-popup__icon">
+												<img src="img/home/popup/bang-4.png" alt="bang">
+											</div>
+											<div class="bonus-popup__value-text">$25,000</div>
+										</div>
 										<div class="bonus-popup__bonus">$1,000 Bonus</div>
 									</div>
 								</div>
@@ -312,7 +369,12 @@
 							<div class="bonus-popup__item">
 								<div class="bonus-popup__item-wrapper">
 									<div class="bonus-popup__item-wrap">
-										<div class="bonus-popup__value">$50,000</div>
+										<div class="bonus-popup__value">
+											<div class="bonus-popup__icon">
+												<img src="img/home/popup/bang-5.png" alt="bang">
+											</div>
+											<div class="bonus-popup__value-text">$50,000</div>
+										</div>
 										<div class="bonus-popup__bonus">$2,000 Bonus</div>
 									</div>
 								</div>
@@ -326,7 +388,7 @@
 	</div>
 
 
-	<script src="js/app.min.js?_v=20230529184129"></script>
+	<script src="js/app.min.js?_v=20230625181305"></script>
 </body>
 
 </html>
